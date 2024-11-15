@@ -42,7 +42,7 @@
 2. **Clone or Download the Repository**:
    Download or clone the repository to your local machine:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/0xgh057r3c0n/PRODIGY_CS_TASK_03.git
    ```
 
 3. **Install Dependencies** (if any):
