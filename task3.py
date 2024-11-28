@@ -2,29 +2,15 @@ import tkinter as tk
 from tkinter import messagebox
 import re
 
-# Author: 0xgh057r3c0n
-# Version: 1.0
-# Description: A tool for assessing the strength of a password based on several criteria such as length, complexity, and character variety.
-
 def assess_password_strength(password):
-    """
-    This function assesses the strength of a password based on several criteria:
-    1. Length of the password.
-    2. Presence of uppercase and lowercase letters.
-    3. Inclusion of digits.
-    4. Presence of special characters.
-    """
-    # Checking criteria
     has_numbers = any(char.isdigit() for char in password)
     has_upper_case = any(char.isupper() for char in password)
     has_lower_case = any(char.islower() for char in password)
     meets_length_requirement = len(password) >= 8
     has_special_characters = bool(re.search(r"[!@#$%^&*(),.?\":{}|<>]", password))
     
-    # Counts the number of met criteria
     met_criteria_count = sum([has_numbers, has_upper_case, has_lower_case, meets_length_requirement, has_special_characters])
 
-    # Classifies the password based on the number of met criteria
     if met_criteria_count == 5:
         return "Password Strength Level: Very Strong (All criteria are met).", "green"
     elif met_criteria_count == 4:
@@ -36,18 +22,12 @@ def assess_password_strength(password):
 
 def show_password_strength():
     password = entry_password.get()
-
-    # Assesses the password strength
     result, color = assess_password_strength(password)
-    
-    # Mask the password input
     masked_password = password[0] + '#' * (len(password) - 2) + password[-1] if len(password) > 2 else password
-    
-    # Show the result in the output label with colorful text
-    output_text.delete(1.0, tk.END)  # Clear previous output
-    output_text.insert(tk.END, f"Entered Password: {masked_password}\n", "black")  # Default color for the password
-    output_text.insert(tk.END, f"{result}\n", color)  # Apply color to the result
-    
+    output_text.delete(1.0, tk.END)
+    output_text.insert(tk.END, f"Entered Password: {masked_password}\n", "black")
+    output_text.insert(tk.END, f"{result}\n", color)
+
 def show_tips():
     tips = [
         "Here are some quick tips for creating a secure password:",
@@ -64,20 +44,17 @@ def show_tips():
     ]
     
     tips_text = "\n".join(tips)
-    tips_text_widget.delete(1.0, tk.END)  # Clear previous tips
-    tips_text_widget.insert(tk.END, tips_text, "blue")  # Set color for the tips
+    tips_text_widget.delete(1.0, tk.END)
+    tips_text_widget.insert(tk.END, tips_text, "blue")
 
-# Setting up the main GUI window
 root = tk.Tk()
 root.title("Password Strength Checker")
 root.geometry("500x500")
 root.configure(bg="#f0f0f0")
 
-# Create and place widgets
 title_label = tk.Label(root, text="Password Strength Checker", font=("Helvetica", 16), bg="#f0f0f0")
 title_label.pack(pady=10)
 
-# Author and Version Label with Bold and Color
 author_label = tk.Label(root, text="Author: 0xgh057r3c0n | Version: 1.0", font=("Helvetica", 10, "bold"), bg="#f0f0f0", fg="#ff6347")
 author_label.pack(pady=5)
 
@@ -105,5 +82,4 @@ tips_text_widget = tk.Text(root, font=("Helvetica", 10), height=10, width=50)
 tips_text_widget.pack(pady=10)
 tips_text_widget.tag_configure("blue", foreground="blue")
 
-# Start the main event loop
 root.mainloop()
